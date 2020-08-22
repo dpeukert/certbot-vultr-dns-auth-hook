@@ -6,10 +6,8 @@ import os
 import string
 from time import sleep
 
-# Configure here
-VULTR_API_KEY = "put your api key here"
-VULTR_BIND_DELAY = 30
-
+VULTR_API_KEY = os.getenv("VULTR_API_KEY")
+VULTR_BIND_DELAY = os.getenv("VULTR_BIND_DELAY", 30)
 
 def vultr_request(method, path, data=None):
     url = "https://api.vultr.com/v1{}".format(path)
@@ -86,6 +84,9 @@ def remove_record(domain, txt_value):
     delete_params = {'domain': zone, 'RECORDID': found[0]['RECORDID']}
     vultr_request("POST", "/dns/delete_record", delete_params)
 
+if VULTR_API_KEY is None:
+    print("Vultr API key not set")
+    exit(1)
 
 act = sys.argv[1]
 

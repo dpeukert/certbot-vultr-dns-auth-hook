@@ -11,12 +11,11 @@ These instructions assume you are on a shell as the `root` user.
 1. Make sure you have `python` and `python-requests` installed, in addition to Certbot.
 2. Download `vultr-dns.py` somewhere onto your server. In this example, we will use `/etc/letsencrypt/vultr-dns.py` as the location.
 3. `chmod 0700 /etc/letsencrypt/vultr-dns.py && chown root:root /etc/letsencrypt/vultr-dns.py`
-4. Modify the configuration section of `/etc/letsencrypt/vultr-dns.py` :
+4. Set the VULTR_API_KEY environment variable (and optionally VULTR_BIND_DELAY if you want to change the default value of 30):
 
-```python
-# Configure here
-VULTR_API_KEY = "put your api key here"
-VULTR_BIND_DELAY = 30
+```bash
+export VULTR_API_KEY="put your api key here"
+export VULTR_BIND_DELAY=15
 ```
 
 5. Try issue a certificate now. With the default configuration, there will be a 30 second delay per domain on the certificate.
